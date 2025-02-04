@@ -29,7 +29,7 @@ public class ClickerScript : MonoBehaviour
             money_amount = PlayerPrefs.GetFloat("money");
             money_text.text = money_amount.ToString();
         }
-       //ResetMoneyAmount(); /*Used For Testing*/
+       ResetMoneyAmount(); /*Used For Testing*/
     }
 
     // Update is called once per frame
