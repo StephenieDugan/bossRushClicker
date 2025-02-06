@@ -415,31 +415,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853221182}
-  - component: {fileID: 853221181}
+  - component: {fileID: 853221185}
+  - component: {fileID: 853221183}
+  - component: {fileID: 853221184}
   m_Layer: 0
-  m_Name: MoneyManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &853221181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853221180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eda99c0fc555f2499e44ac89e60f460, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boss_current_health: 0
-  boss_max_health: 100
-  boss_healthbar: {fileID: 569108354}
-  money_mult: 1
-  money_text: {fileID: 1807891128}
 --- !u!4 &853221182
 Transform:
   m_ObjectHideFlags: 0
@@ -455,6 +440,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &853221183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853221180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eda99c0fc555f2499e44ac89e60f460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money_text: {fileID: 1807891128}
+  boss_manager: {fileID: 853221185}
+--- !u!114 &853221184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853221180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee37cf636a996a40a178cf958d1ec72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1598468207}
+  bossSprites:
+  - {fileID: -6199238499878753951, guid: 1235ca7cc96ef2d4091aa925f8e30f43, type: 3}
+  - {fileID: 7611919021688551150, guid: b7c0adcd43607e14a90c514eb7aa78f1, type: 3}
+--- !u!114 &853221185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853221180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c8eb7ca3d0d8d40b1c2bc2321b4dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBosses:
+  - {fileID: 1598468204}
+  - {fileID: 1842606812}
+  defeatedBosses: []
+  healthIncreasePerBoss: 20
 --- !u!1 &884162603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,6 +1103,7 @@ GameObject:
   - component: {fileID: 1598468207}
   - component: {fileID: 1598468206}
   - component: {fileID: 1598468205}
+  - component: {fileID: 1598468209}
   m_Layer: 0
   m_Name: MapleGun_0
   m_TagString: Untagged
@@ -1093,19 +1126,7 @@ MonoBehaviour:
   onTap:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 853221181}
-        m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
-        m_MethodName: EarnPoints
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 853221181}
+      - m_Target: {fileID: 853221183}
         m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
         m_MethodName: HurtBoss
         m_Mode: 1
@@ -1233,8 +1254,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1706308872
-GameObject:
+--- !u!114 &1598468209
+MonoBehaviour
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
