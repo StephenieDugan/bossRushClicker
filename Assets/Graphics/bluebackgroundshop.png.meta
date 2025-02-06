@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bluebackgroundshop_0: 3637130687426194895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
