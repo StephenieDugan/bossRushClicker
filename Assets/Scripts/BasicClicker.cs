@@ -28,7 +28,7 @@ public class ClickerScript : MonoBehaviour
             money_text.text = money_amount.ToString();
         }
        ResetMoneyAmount(); /*Used For Testing*/
-       SpawnNextBoss();
+       //SpawnNextBoss();
     }
 
     // Update is called once per frame

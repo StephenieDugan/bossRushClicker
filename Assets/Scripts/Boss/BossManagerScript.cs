@@ -15,12 +15,16 @@ public class BossManagerScript : MonoBehaviour
 
     private int currentBossIndex = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        // Initialize the bossesToFight list with all bosses
+	private void Awake() {
         bossesToFight = new List<GameObject>(allBosses);
         ShuffleBossList(bossesToFight); // Randomize the order
+		
+	}
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
+    {
+        // Initialize the bossesToFight list with all bosses
         SpawnNextBoss();
     }
 
