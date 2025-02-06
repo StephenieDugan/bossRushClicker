@@ -25,7 +25,7 @@ public class BossManagerScript : MonoBehaviour
 	void Start()
     {
         // Initialize the bossesToFight list with all bosses
-        SpawnNextBoss();
+        //SpawnNextBoss();
     }
 
     // Shuffle the boss list to randomize the fight order
@@ -53,7 +53,7 @@ public class BossManagerScript : MonoBehaviour
             {
                 bossScript.max_health += currentBossIndex * healthIncreasePerBoss;
                 bossScript.current_health = bossScript.max_health; // Set current health to max after increase
-
+                latestSpawnedBoss = newBoss;
                 bossScript.reward_min += 0.25f;
                 bossScript.reward_max += 2.0f;
             }

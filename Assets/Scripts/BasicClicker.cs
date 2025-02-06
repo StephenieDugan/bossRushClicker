@@ -28,7 +28,7 @@ public class ClickerScript : MonoBehaviour
             money_text.text = money_amount.ToString();
         }
        ResetMoneyAmount(); /*Used For Testing*/
-       //SpawnNextBoss();
+       SpawnNextBoss();
     }
 
     // Update is called once per frame
@@ -75,8 +75,8 @@ public class ClickerScript : MonoBehaviour
 
             if (current_Boss != null)
             {
-                current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
-                current_Boss.health_bar.value = current_Boss.current_health;  // Set the initial health value
+                //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
+                current_Boss.health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
             }
             else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
         }
