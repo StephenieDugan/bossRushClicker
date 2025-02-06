@@ -10,12 +10,6 @@ public class ObjectToClick : MonoBehaviour
         onTap.Invoke();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     private void Update()
     {
         // Raycast for mouse or touch input
@@ -28,7 +22,7 @@ public class ObjectToClick : MonoBehaviour
 
             if (hit.collider != null && hit.collider.gameObject == gameObject)  // Check if the ray hit the current object
             {
-                onTap.Invoke();  // Invoke the assigned methods in UnityEvent
+                OnTap();  // Invoke the assigned methods in UnityEvent
             }
         }
     }
