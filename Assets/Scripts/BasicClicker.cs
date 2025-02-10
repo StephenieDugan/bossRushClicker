@@ -14,10 +14,11 @@ public class ClickerScript : MonoBehaviour
     [SerializeField] BossManagerScript boss_manager;
     private BossScript current_Boss;
 
+	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         // Find the BossManager in the scene
         boss_manager = Object.FindFirstObjectByType<BossManagerScript>();
@@ -32,12 +33,15 @@ public class ClickerScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // Update boss health and money multiplier
-        if (current_Boss != null)
-        {
+        if (current_Boss != null) {
             current_Boss.health_bar.value = current_Boss.current_health / current_Boss.max_health;
+        }
+        if (current_Boss != null) {
+            for (int i = 0; i < currentDamagePerSec.Length; i++) {
+                current_Boss.TakeDamage(currentDamagePerSec[i] * Time.deltaTime, (ElementType)i);
+            }
         }
     }
 
@@ -80,6 +84,10 @@ public class ClickerScript : MonoBehaviour
             }
             else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
         }
+    }
+
+    public void upgradeAllies(float damage, ElementType type) {
+        currentDamagePerSec[(int)type] += damage;
     }
 
     private void EarnPoints(float multiplier = 1) 
