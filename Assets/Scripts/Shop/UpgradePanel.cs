@@ -15,16 +15,16 @@ public class UpgradePanel : MonoBehaviour
 
     public void Start()
     {
-        canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height - 100f;
+        canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height + 500f;
         ClosePanel(); // Start with panel off-screen
 
     }
 
     public void OpenPanel()
     {
-        resultHeight1 = 0; // Bring to the center of the screen
-        resultHeight2 = resultHeight1 - 100f; // Optional offset effect
-        actualHeight1 = -canvasHeight / 2;  // Start from bottom
+        resultHeight1 = canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
+        resultHeight2 = resultHeight1 - 1700f; // Optional offset effect
+        actualHeight1 = -canvasHeight;  // Start from bottom
         actualHeight2 = -canvasHeight / 4;
         panelMovement = 1; // Start movement
 
@@ -46,7 +46,7 @@ public class UpgradePanel : MonoBehaviour
         resultHeight1 = actualHeight1;
         resultHeight2 = actualHeight2;
         actualHeight1 = -canvasHeight; // Start fully below the screen
-        actualHeight2 = actualHeight1 - 100f;
+        actualHeight2 = actualHeight1 - 1600f;
         //actualHeight1 = -canvasHeight / 2; // Start completely off-screen
         //actualHeight2 = -canvasHeight / 4; // Optional offset effect
 
@@ -66,7 +66,7 @@ public class UpgradePanel : MonoBehaviour
         {
             if (panelMovement == 1)// Move up
             {
-                Debug.Log(actualHeight1);
+                //Debug.Log(actualHeight1);
                 actualHeight1 += canvasHeight * Time.deltaTime; // Smooth transition
                 actualHeight2 += (canvasHeight/2) * Time.deltaTime; // Slightly slower for a staggered effect
                 if (actualHeight1 > resultHeight1)
