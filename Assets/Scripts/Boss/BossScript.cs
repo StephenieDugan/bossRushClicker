@@ -90,7 +90,20 @@ public class BossScript : MonoBehaviour
         UpdateHealthBar();
         CheckEnrageState();
     }
-    public float CalculateMultiplier()
+
+	public void TakeDamage(float base_damage, ElementType attack_element) {
+		// Calculate average multiplier from all boss elements
+		float avgMultiplier = boss_elements.Length > 0
+			? boss_elements.Select(element => GetElementalMultiplier(attack_element, element)).Average()
+			: 1f; // Default to 1x if the boss has no elements (shouldn't happen)
+		float finalDamage = base_damage * avgMultiplier;
+		current_health -= finalDamage;
+		current_health = Mathf.Clamp(current_health, 0, max_health);
+		UpdateHealthBar();
+		CheckEnrageState();
+	}
+
+	public float CalculateMultiplier()
     {
         money_multiplier = Random.Range(reward_min, reward_max);
         money_multiplier = Mathf.Floor(money_multiplier * 100) / 100f;  // Truncate to 2 decimal places
