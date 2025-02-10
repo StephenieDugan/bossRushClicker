@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -13,6 +14,7 @@ public class ClickerScript : MonoBehaviour
     // Reference to the BossManager and BossScript
     [SerializeField] BossManagerScript boss_manager;
     private BossScript current_Boss;
+    private PlayerTaps playerTaps;
 
 
 
@@ -21,6 +23,7 @@ public class ClickerScript : MonoBehaviour
     {
         // Find the BossManager in the scene
         boss_manager = Object.FindFirstObjectByType<BossManagerScript>();
+        playerTaps = Object.FindFirstObjectByType<PlayerTaps>();
 
         if (PlayerPrefs.HasKey("money")) 
         {
@@ -45,7 +48,11 @@ public class ClickerScript : MonoBehaviour
     {
         if (current_Boss != null)
         {
-            current_Boss.TakeDamage(click_damage, ElementType.Fire); // Example element: Fire
+            // Retrieve player's elemental damage values
+            Dictionary<ElementType, float> playerElements = playerTaps.GetTapElements();
+
+            // Apply damage using the new TakeDamage method
+            current_Boss.TakeDamage(playerElements);
             if (current_Boss.current_health <= 0)
             {
                 // Boss defeated

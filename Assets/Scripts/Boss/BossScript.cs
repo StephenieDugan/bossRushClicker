@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public enum ElementType
 {
@@ -36,7 +37,7 @@ public class BossScript : MonoBehaviour
 
     [Header("Elemental Properties")]
     public ElementType[] boss_elements;
-    
+
     private static readonly float[,] dmg_multipliers = new float[,]
     {
         // Light  Void  Fire  Water  Air  Earth  Plant
@@ -57,23 +58,37 @@ public class BossScript : MonoBehaviour
         UpdateHealthBar();
     }
 
-    public void TakeDamage(float base_damage, ElementType attack_element)
+    public void TakeDamage(Dictionary<ElementType, float> attackElements)
     {
-        // Calculate average multiplier from all boss elements
-        float avgMultiplier = boss_elements.Length > 0
-            ? boss_elements.Select(element => GetElementalMultiplier(attack_element, element)).Average()
-            : 1f; // Default to 1x if the boss has no elements (shouldn't happen)
+        float maxDamage = 0f;
 
-        float finalDamage = base_damage * avgMultiplier;
+        foreach (var attack in attackElements)
+        {
+            ElementType attackElement = attack.Key;
+            float baseDamage = attack.Value;
 
-        current_health -= finalDamage;
+            // Calculate average multiplier from all boss elements
+            float avgMultiplier = boss_elements.Length > 0
+                ? boss_elements.Select(element => GetElementalMultiplier(attackElement, element)).Average()
+                : 1f; // Default to 1x if the boss has no elements
+
+            float finalDamage = baseDamage * avgMultiplier;
+
+            // Keep track of the highest possible damage
+            if (finalDamage > maxDamage)
+            {
+                maxDamage = finalDamage;
+            }
+            // Debug log for each element's contribution
+            Debug.Log($"Element: {attackElement}, Base Damage: {baseDamage}, Multiplier: {avgMultiplier}, Final Damage: {finalDamage}");
+        }
+
+        // Apply only the highest damage found
+        current_health -= maxDamage;
         current_health = Mathf.Clamp(current_health, 0, max_health);
 
         UpdateHealthBar();
         CheckEnrageState();
-
-        if (current_health <= 0)
-            Die();
     }
     public float CalculateMultiplier()
     {
@@ -93,10 +108,5 @@ public class BossScript : MonoBehaviour
     private void UpdateHealthBar()
     {
         if (health_bar != null) health_bar.value = current_health / max_health;
-    }
-    private void Die()
-    {
-        Debug.Log(gameObject.name + " has been defeated!");
-        Destroy(gameObject);
     }
 }
