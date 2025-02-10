@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -13,14 +14,17 @@ public class ClickerScript : MonoBehaviour
     // Reference to the BossManager and BossScript
     [SerializeField] BossManagerScript boss_manager;
     private BossScript current_Boss;
+    private PlayerTaps playerTaps;
+
+	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         // Find the BossManager in the scene
         boss_manager = Object.FindFirstObjectByType<BossManagerScript>();
+        playerTaps = Object.FindFirstObjectByType<PlayerTaps>();
 
         if (PlayerPrefs.HasKey("money")) 
         {
@@ -28,16 +32,19 @@ public class ClickerScript : MonoBehaviour
             money_text.text = money_amount.ToString();
         }
        ResetMoneyAmount(); /*Used For Testing*/
-       //SpawnNextBoss();
+       SpawnNextBoss();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // Update boss health and money multiplier
-        if (current_Boss != null)
-        {
+        if (current_Boss != null) {
             current_Boss.health_bar.value = current_Boss.current_health / current_Boss.max_health;
+        }
+        if (current_Boss != null) {
+            for (int i = 0; i < currentDamagePerSec.Length; i++) {
+                current_Boss.TakeDamage(currentDamagePerSec[i] * Time.deltaTime, (ElementType)i);
+            }
         }
     }
 
@@ -45,7 +52,11 @@ public class ClickerScript : MonoBehaviour
     {
         if (current_Boss != null)
         {
-            current_Boss.TakeDamage(click_damage, ElementType.Fire); // Example element: Fire
+            // Retrieve player's elemental damage values
+            Dictionary<ElementType, float> playerElements = playerTaps.GetTapElements();
+
+            // Apply damage using the new TakeDamage method
+            current_Boss.TakeDamage(playerElements);
             if (current_Boss.current_health <= 0)
             {
                 // Boss defeated
@@ -75,11 +86,15 @@ public class ClickerScript : MonoBehaviour
 
             if (current_Boss != null)
             {
-                current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
-                current_Boss.health_bar.value = current_Boss.current_health;  // Set the initial health value
+                //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
+                current_Boss.health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
             }
             else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
         }
+    }
+
+    public void upgradeAllies(float damage, ElementType type) {
+        currentDamagePerSec[(int)type] += damage;
     }
 
     private void EarnPoints(float multiplier = 1) 
