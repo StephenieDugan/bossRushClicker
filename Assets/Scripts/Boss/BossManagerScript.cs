@@ -53,7 +53,7 @@ public class BossManagerScript : MonoBehaviour
                 bossScript.reward_max += 2.0f;
 
                 // Start the timer when a new boss is spawned
-                timer.Being(30);  // Set timer for 30 seconds (or adjust as needed)
+                timer.Begin(30);  // Set timer for 30 seconds (or adjust as needed)
 
                 // Debug log to track health changes
                 if (bossScript.max_health > previousMaxHealth)
@@ -105,7 +105,7 @@ public class BossManagerScript : MonoBehaviour
         {
             defeatedBosses.Add(defeatedBoss); // Add defeated boss to the list
             defeatedBoss.SetActive(false);
-            timer.Being(30);  // Reset timer for the next fight
+            timer.Begin(30);  // Reset timer for the next fight
             SpawnNextBoss(); // Spawn the next boss
         }
     }
@@ -138,7 +138,7 @@ public class BossManagerScript : MonoBehaviour
             latestSpawnedBoss = lastDefeatedBoss; // Track as active boss
 
             // Restart the timer
-            timer.Being(30);
+            timer.Begin(30);
 
             Debug.Log($"Player lost! Returning to previous boss: {lastDefeatedBoss.name}");
         }

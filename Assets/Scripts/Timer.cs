@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-
 
 public class Timer : MonoBehaviour, IPointerClickHandler
 {
@@ -19,43 +17,39 @@ public class Timer : MonoBehaviour, IPointerClickHandler
 
     public int Duration;
 
-    private int remainingDuration;
-
+    private float remainingTime;
     private bool Pause;
 
     private void Start()
     {
-        Being(Duration);
+        Begin(Duration);
     }
 
-    public void Being(int Second)
+    public void Begin(int seconds)
     {
-        remainingDuration = Second;
-        StartCoroutine(UpdateTimer());
+        remainingTime = seconds;
     }
 
-    private IEnumerator UpdateTimer()
+    private void Update()
     {
-        while (remainingDuration >= 0)
+        if (!Pause && remainingTime > 0)
         {
-            if (!Pause)
+            remainingTime -= Time.deltaTime;
+
+            int displayTime = Mathf.Max(Mathf.FloorToInt(remainingTime), 0);
+            uiText.text = displayTime.ToString();
+            uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingTime);
+
+            if (remainingTime <= 0)
             {
-                uiText.text = remainingDuration.ToString();
-                uiFill.fillAmount = Mathf.InverseLerp(0, Duration, remainingDuration);
-                remainingDuration--;
-                yield return new WaitForSeconds(1f);
+                OnEnd();
             }
-            yield return null;
         }
-        OnEnd();
     }
 
     private void OnEnd()
     {
-        //End Time
-        print("End");
-
-        // Notify the BossManager that the timer has ended
+        Debug.Log("End");
         boss_manager.TimerEnded();
     }
 }
