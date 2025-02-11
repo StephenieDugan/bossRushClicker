@@ -37,47 +37,41 @@ public class BossManagerScript : MonoBehaviour
     // Spawn the next boss
     public void SpawnNextBoss()
     {
+        if (latestSpawnedBoss != null)
+        {
+            Debug.Log("A boss is already active. No need to spawn a new one.");
+            return;
+        }
+
         if (currentBossIndex < bossesToFight.Count)
         {
             GameObject bossPrefab = bossesToFight[currentBossIndex];
             GameObject newBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
 
-            // Increase the boss's health and money given progressively
             if (newBoss.TryGetComponent(out BossScript bossScript))
             {
-                float previousMaxHealth = bossScript.max_health; // Store previous health
                 bossScript.max_health += currentBossIndex * healthIncreasePerBoss;
-                bossScript.current_health = bossScript.max_health; // Set current health to max after increase
+                bossScript.current_health = bossScript.max_health;
                 latestSpawnedBoss = newBoss;
                 bossScript.reward_min += 0.25f;
                 bossScript.reward_max += 2.0f;
 
-                // Start the timer when a new boss is spawned
-                timer.Begin(30);  // Set timer for 30 seconds (or adjust as needed)
+                timer.Begin(30);
 
-                // Debug log to track health changes
-                if (bossScript.max_health > previousMaxHealth)
-                {
-                    Debug.Log($"Boss {bossPrefab.name} spawned with increased health! Previous: {previousMaxHealth}, New: {bossScript.max_health}");
-                }
-                else
-                {
-                    Debug.Log($"Boss {bossPrefab.name} spawned with unchanged health: {bossScript.max_health}");
-                }
+                Debug.Log($"Boss {bossPrefab.name} spawned with health {bossScript.max_health}");
             }
             else
             {
                 Debug.LogError("BossScript component not found on the spawned boss!");
             }
-
             currentBossIndex++;
         }
         else
         {
             Debug.Log("All bosses have been defeated!");
-            // You could trigger an end game event or reset
         }
     }
+
     // Return the latest spawned boss
     public GameObject GetLatestSpawnedBoss()
     {
@@ -97,15 +91,15 @@ public class BossManagerScript : MonoBehaviour
             }
         }
     }
-
-    // Track boss defeat and move to the next one
     public void DefeatBoss(GameObject defeatedBoss)
     {
         if (!defeatedBosses.Contains(defeatedBoss))
         {
-            defeatedBosses.Add(defeatedBoss); // Add defeated boss to the list
-            defeatedBoss.SetActive(false);
-            timer.Begin(30);  // Reset timer for the next fight
+            defeatedBosses.Add(defeatedBoss);
+            defeatedBoss.SetActive(false); // Hide the boss instead of destroying
+            latestSpawnedBoss = null; // Clear reference to avoid accidental reactivation
+
+            timer.Begin(30); // Reset the timer
             SpawnNextBoss(); // Spawn the next boss
         }
     }
@@ -115,9 +109,8 @@ public class BossManagerScript : MonoBehaviour
     {
         if (defeatedBosses.Count > 0)
         {
-            // Get the last defeated boss
             GameObject lastDefeatedBoss = defeatedBosses[defeatedBosses.Count - 1];
-            defeatedBosses.RemoveAt(defeatedBosses.Count - 1); // Remove from defeated list
+            defeatedBosses.RemoveAt(defeatedBosses.Count - 1);
 
             if (lastDefeatedBoss == null)
             {
@@ -125,9 +118,9 @@ public class BossManagerScript : MonoBehaviour
                 return;
             }
 
-            // Reactivate and reposition the boss
+            // Reactivate and reposition
             lastDefeatedBoss.SetActive(true);
-            lastDefeatedBoss.transform.position = transform.position; // Move to spawn location
+            lastDefeatedBoss.transform.position = transform.position;
 
             // Reset boss stats
             if (lastDefeatedBoss.TryGetComponent(out BossScript bossScript))
@@ -135,7 +128,8 @@ public class BossManagerScript : MonoBehaviour
                 bossScript.current_health = bossScript.max_health; // Restore health
             }
 
-            latestSpawnedBoss = lastDefeatedBoss; // Track as active boss
+            latestSpawnedBoss = lastDefeatedBoss; // Ensure proper tracking
+            currentBossIndex = Mathf.Max(0, currentBossIndex - 1); // Ensure we revert boss progression
 
             // Restart the timer
             timer.Begin(30);
@@ -145,9 +139,10 @@ public class BossManagerScript : MonoBehaviour
         else
         {
             Debug.Log("No previous boss to return to!");
-            // Handle restart or game over scenario
+            // Handle restart or game over
         }
     }
+
 
 
 }
