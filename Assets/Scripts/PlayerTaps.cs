@@ -4,11 +4,14 @@ using UnityEngine;
 public class PlayerTaps : MonoBehaviour
 {
     private Dictionary<ElementType, float> playerElements = new();
+    public static PlayerTaps Instance { get; private set; }
+
 
     private void Awake()
     {
         ResetElements();
         AddToElement(ElementType.Light, 15f);
+        Instance = this;
     }
 
     public void AddToElement(ElementType element, float damage)

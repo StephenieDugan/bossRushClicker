@@ -8,8 +8,9 @@ public class ClickerScript : MonoBehaviour
 { 
     //PLAYER
     [SerializeField] TMP_Text money_text;
-    private float money_amount;
-    readonly private float click_damage = 10.0f;
+    public float money_amount;
+
+    public static ClickerScript instance { get; private set; } 
 
     // Reference to the BossManager and BossScript
     [SerializeField] BossManagerScript boss_manager;
@@ -17,6 +18,10 @@ public class ClickerScript : MonoBehaviour
     private PlayerTaps playerTaps;
 
 	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
+
+	private void Awake() {
+		instance = this;
+	}
 
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created

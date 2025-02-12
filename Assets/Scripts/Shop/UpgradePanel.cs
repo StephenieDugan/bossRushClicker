@@ -9,6 +9,7 @@ public class UpgradePanel : MonoBehaviour
     public float canvasHeight;
     public float canvasHeightBottom; //for testing, i made it a variable to make sure for the frame of the phone.
     public Button OpenShopButton; // Reference to the button
+    public Button CloseShopButton; // Reference to the button
     private float resultHeight1, resultHeight2; // Target heights when opening/closing
     private float actualHeight1, actualHeight2; // Current animated heights
     public int panelMovement;
@@ -17,13 +18,18 @@ public class UpgradePanel : MonoBehaviour
     {
         canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height + 500f;
         ClosePanel(); // Start with panel off-screen
-
-    }
+		if (OpenShopButton != null) {
+			OpenShopButton.onClick.AddListener(OpenPanel);
+		}
+		if (CloseShopButton != null) {
+			CloseShopButton.onClick.AddListener(ClosePanel);
+		}
+	}
 
     public void OpenPanel()
     {
-        resultHeight1 = canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
-        resultHeight2 = resultHeight1 - 1700f; // Optional offset effect
+        resultHeight1 = 0;//canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
+        resultHeight2 = resultHeight1 - 1200f; // Optional offset effect
         actualHeight1 = -canvasHeight;  // Start from bottom
         actualHeight2 = -canvasHeight / 4;
         panelMovement = 1; // Start movement
@@ -33,10 +39,7 @@ public class UpgradePanel : MonoBehaviour
         Panel.anchoredPosition = new Vector2(0, 0);
 
         // Ensure button calls OpenPanel() when clicked
-        if (OpenShopButton != null)
-        {
-            OpenShopButton.onClick.AddListener(OpenPanel);
-        }
+
         //-Scenery.sizeDelta = new Vector2(0, canvasHeight);
         //Scenery.anchoredPosition = new Vector2(0, 0);
     }
@@ -51,9 +54,10 @@ public class UpgradePanel : MonoBehaviour
         //actualHeight2 = -canvasHeight / 4; // Optional offset effect
 
         Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
-        //-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
-        //Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
-    }
+		//-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
+		//Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
+
+	}
 
 
 
