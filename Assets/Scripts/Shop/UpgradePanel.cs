@@ -17,26 +17,27 @@ public class UpgradePanel : MonoBehaviour
     public void Start()
     {
         canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height + 500f;
-        ClosePanel(); // Start with panel off-screen
-		if (OpenShopButton != null) {
-			OpenShopButton.onClick.AddListener(OpenPanel);
-		}
-		if (CloseShopButton != null) {
-			CloseShopButton.onClick.AddListener(ClosePanel);
-		}
-	}
+        ClosePanel();
+
+        // Ensure button calls OpenPanel() when clicked
+        if (OpenShopButton != null)
+            OpenShopButton.onClick.AddListener(OpenPanel);
+        // Ensure button calls ClosePanel() when clicked
+        if (CloseShopButton != null)
+            CloseShopButton.onClick.AddListener(ClosePanel);
+    }
 
     public void OpenPanel()
     {
-        resultHeight1 = 0;//canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
-        resultHeight2 = resultHeight1 - 1200f; // Optional offset effect
+        resultHeight1 = canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
+        resultHeight2 = resultHeight1 - 100f; // Optional offset effect
         actualHeight1 = -canvasHeight;  // Start from bottom
         actualHeight2 = -canvasHeight / 4;
         panelMovement = 1; // Start movement
 
         Debug.Log(resultHeight1); Debug.Log(resultHeight2); Debug.Log(actualHeight1); Debug.Log(actualHeight2); Debug.Log(panelMovement);
 
-        Panel.anchoredPosition = new Vector2(0, 0);
+        //Panel.anchoredPosition = new Vector2(0, 0);
 
         // Ensure button calls OpenPanel() when clicked
 
@@ -46,21 +47,24 @@ public class UpgradePanel : MonoBehaviour
 
     public void ClosePanel()
     {
-        resultHeight1 = actualHeight1;
-        resultHeight2 = actualHeight2;
-        actualHeight1 = -canvasHeight; // Start fully below the screen
-        actualHeight2 = actualHeight1 - 1600f;
-        //actualHeight1 = -canvasHeight / 2; // Start completely off-screen
-        //actualHeight2 = -canvasHeight / 4; // Optional offset effect
+        resultHeight1 = -canvasHeight - 500f; // Start completely off-screen
+        resultHeight2 = resultHeight1 - 100f; // Optional offset effect
+        //actualHeight1 = canvasHeight / 4;
+        //actualHeight2 = canvasHeight; // Start fully above the screen
 
-        Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
-		//-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
-		//Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
-
-	}
+        panelMovement = 2; // make sure the movement happens
 
 
+        //Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
+        //Panel.anchoredPosition = new Vector2(0, 0);
+        //-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
+        //Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
 
+
+    }
+
+
+    /*
     public void Update()
     {
         //var height = canvas.gameObject.GetComponent<RectTransform>().rect.height;
@@ -84,7 +88,7 @@ public class UpgradePanel : MonoBehaviour
                 actualHeight1 -= canvasHeight * Time.deltaTime;
                 actualHeight2 -= (canvasHeight / 2) * Time.deltaTime;
 
-                if (actualHeight1 < resultHeight1)
+                if (actualHeight1 <= resultHeight1)
                 {
                     actualHeight1 = resultHeight1;
                     actualHeight2 = resultHeight2;
@@ -95,5 +99,28 @@ public class UpgradePanel : MonoBehaviour
             Panel.anchoredPosition = new Vector2(0, actualHeight1);
             //Scenery.anchoredPosition = new Vector2(0, actualHeight2);
         }
+    */
+    public void Update()
+    {
+        if (panelMovement == 1) // Move Up (Open)
+        {
+            actualHeight1 = Mathf.Lerp(actualHeight1, resultHeight1, Time.deltaTime * 5f);
+            if (Mathf.Abs(actualHeight1 - resultHeight1) < 1f)
+            {
+                actualHeight1 = resultHeight1;
+                panelMovement = 0; // Stop moving
+            }
+        }
+        else if (panelMovement == 2) // Move Down (Close)
+        {
+            actualHeight1 = Mathf.Lerp(actualHeight1, resultHeight1, Time.deltaTime * 5f);
+            if (Mathf.Abs(actualHeight1 - resultHeight1) < 1f)
+            {
+                actualHeight1 = resultHeight1;
+                panelMovement = 0; // Stop moving
+            }
+        }
+
+        Panel.anchoredPosition = new Vector2(0, actualHeight1);
     }
 }
