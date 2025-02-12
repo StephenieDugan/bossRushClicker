@@ -22,7 +22,6 @@ public class BossScript : MonoBehaviour
     [Header("Health Settings")]
     public float max_health;
     public float current_health;
-    public Slider health_bar;
 
     [Header("Red Health & Enrage")]
     [Range(0f, 1f)] public float redHealth_percentage = 0.25f; // 25% default

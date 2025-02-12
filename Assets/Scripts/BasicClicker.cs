@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ClickerScript : MonoBehaviour
 { 
     //PLAYER
-    [SerializeField] TMP_Text money_text;
+    [SerializeField] public TMP_Text money_text;
     public float money_amount;
 
 	public Slider health_bar;

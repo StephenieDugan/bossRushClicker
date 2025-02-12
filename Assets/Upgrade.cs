@@ -18,6 +18,8 @@ public class Upgrade : MonoBehaviour {
 		float currentMoney = ClickerScript.instance.money_amount;
 		if (currentMoney > CurrentCost) {
 			ClickerScript.instance.money_amount = currentMoney - CurrentCost;
+
+			ClickerScript.instance.money_text.text = ClickerScript.instance.money_amount.ToString();
 			CurrentCost += CostIncrease;
 			costText.text = "$" + CurrentCost.ToString();
 			if (IsItTapPower) {
