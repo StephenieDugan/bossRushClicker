@@ -86,6 +86,7 @@ public class ClickerScript : MonoBehaviour
 
             if (current_Boss != null)
             {
+                current_Boss.startBoss();
                 //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
                 current_Boss.health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
             }

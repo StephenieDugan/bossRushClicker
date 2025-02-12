@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossSpriteManager : MonoBehaviour
 {
     [Header("Boss Sprite")]
-    public SpriteRenderer spriteRenderer;
+    public Image spriteRenderer;
     public Sprite[] bossSprites; // Array of sprites for different bosses
 
     // This function can be called to change the sprite based on a boss type or selection

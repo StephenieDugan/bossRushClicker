@@ -51,7 +51,7 @@ public class BossScript : MonoBehaviour
     };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void startBoss()
     {
         sprite_manager.SetSprite(sprite_value);
         current_health = max_health;

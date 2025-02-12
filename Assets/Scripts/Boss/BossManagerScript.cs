@@ -100,7 +100,7 @@ public class BossManagerScript : MonoBehaviour
             latestSpawnedBoss = null; // Clear reference to avoid accidental reactivation
 
             timer.Begin(30); // Reset the timer
-            SpawnNextBoss(); // Spawn the next boss
+            //SpawnNextBoss(); // Spawn the next boss
         }
     }
 
@@ -125,9 +125,10 @@ public class BossManagerScript : MonoBehaviour
             // Reset boss stats
             if (lastDefeatedBoss.TryGetComponent(out BossScript bossScript))
             {
+                bossScript.startBoss();
                 bossScript.current_health = bossScript.max_health; // Restore health
             }
-
+            latestSpawnedBoss.SetActive(false);
             latestSpawnedBoss = lastDefeatedBoss; // Ensure proper tracking
             currentBossIndex = Mathf.Max(0, currentBossIndex - 1); // Ensure we revert boss progression
 
