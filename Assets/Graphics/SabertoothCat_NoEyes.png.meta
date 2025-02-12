@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SabertoothCat_NoEyes_0: 6588187428412116451
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

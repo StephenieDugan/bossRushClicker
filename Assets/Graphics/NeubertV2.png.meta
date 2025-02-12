@@ -210,7 +210,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NeubertV2_0: 3950913091946968770
+      NeubertV2_1: 7961127879905390389
+      NeubertV2_2: -2265445794945439759
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
