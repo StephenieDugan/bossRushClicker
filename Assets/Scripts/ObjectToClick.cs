@@ -5,7 +5,11 @@ public class ObjectToClick : MonoBehaviour
 {
     public UnityEvent onTap;
 
-    private void OnTap() 
+	private void Start() {
+		onTap.AddListener(ClickerScript.instance.HurtBoss);
+	}
+
+	private void OnTap() 
     {
         onTap.Invoke();
     }

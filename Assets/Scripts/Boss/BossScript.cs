@@ -17,7 +17,6 @@ public enum ElementType
 public class BossScript : MonoBehaviour
 {
     [Header("Visual Attachments")]
-    public BossSpriteManager sprite_manager;
     [SerializeField] private int sprite_value;
 
     [Header("Health Settings")]
@@ -53,7 +52,7 @@ public class BossScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void startBoss()
     {
-        sprite_manager.SetSprite(sprite_value);
+        BossSpriteManager.instance.SetSprite(sprite_value);
         current_health = max_health;
         UpdateHealthBar();
     }
