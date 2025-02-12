@@ -1612,6 +1612,7 @@ MonoBehaviour:
   money_amount: 0
   health_bar: {fileID: 569108354}
   boss_manager: {fileID: 853221185}
+  current_Boss: {fileID: 0}
 --- !u!114 &853221184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2639,7 +2640,7 @@ MonoBehaviour:
   costText: {fileID: 751472451}
   CurrentCost: 10
   CostIncrease: 10
-  type: 0
+  type: 5
   DamageIncrease: 1
   IsItTapPower: 0
 --- !u!114 &1352273862
