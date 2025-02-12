@@ -17,7 +17,7 @@ public class UpgradePanel : MonoBehaviour
     public void Start()
     {
         canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height + 500f;
-        ClosePanel(); // Start with panel off-screen
+        ClosePanel();
 
         // Ensure button calls OpenPanel() when clicked
         if (OpenShopButton != null)
@@ -39,6 +39,8 @@ public class UpgradePanel : MonoBehaviour
 
         //Panel.anchoredPosition = new Vector2(0, 0);
 
+        // Ensure button calls OpenPanel() when clicked
+
         //-Scenery.sizeDelta = new Vector2(0, canvasHeight);
         //Scenery.anchoredPosition = new Vector2(0, 0);
     }
@@ -52,10 +54,12 @@ public class UpgradePanel : MonoBehaviour
 
         panelMovement = 2; // make sure the movement happens
 
+
         //Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
         //Panel.anchoredPosition = new Vector2(0, 0);
         //-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
         //Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
+
 
     }
 

@@ -7,16 +7,24 @@ using UnityEngine.UI;
 public class ClickerScript : MonoBehaviour
 { 
     //PLAYER
-    [SerializeField] TMP_Text money_text;
-    private float money_amount;
-    readonly private float click_damage = 10.0f;
+    [SerializeField] public TMP_Text money_text;
+    public float money_amount;
+
+	public Slider health_bar;
+	public static ClickerScript instance { get; private set; } 
 
     // Reference to the BossManager and BossScript
     [SerializeField] BossManagerScript boss_manager;
     private BossScript current_Boss;
     private PlayerTaps playerTaps;
 
+
+
 	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
+
+	private void Awake() {
+		instance = this;
+	}
 
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,7 +47,7 @@ public class ClickerScript : MonoBehaviour
     void Update() {
         // Update boss health and money multiplier
         if (current_Boss != null) {
-            current_Boss.health_bar.value = current_Boss.current_health / current_Boss.max_health;
+            health_bar.value = current_Boss.current_health / current_Boss.max_health;
         }
         if (current_Boss != null) {
             for (int i = 0; i < currentDamagePerSec.Length; i++) {
@@ -86,8 +94,9 @@ public class ClickerScript : MonoBehaviour
 
             if (current_Boss != null)
             {
+                current_Boss.startBoss();
                 //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
-                current_Boss.health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
+                health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
             }
             else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
         }
