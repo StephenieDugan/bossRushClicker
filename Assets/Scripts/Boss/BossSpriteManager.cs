@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossSpriteManager : MonoBehaviour
-{
+public class BossSpriteManager : MonoBehaviour {
     [Header("Boss Sprite")]
     public Image spriteRenderer;
     public Sprite[] bossSprites; // Array of sprites for different bosses
-    public static BossSpriteManager instance {get; private set;}
+    public static BossSpriteManager instance { get; private set; }
+    [SerializeField] public List<Vector2> GooglyEyePositions;
+    [SerializeField] public List<googlyEye> googlyEyes;
 
 	private void Awake() {
 		instance = this;
@@ -16,6 +18,8 @@ public class BossSpriteManager : MonoBehaviour
     public void TapBoss() {
         spriteRenderer.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         //force on googly eyes
+        googlyEyes[0].ApplyRandomForce();
+        googlyEyes[1].ApplyRandomForce();
 
 	}
 
@@ -29,6 +33,8 @@ public class BossSpriteManager : MonoBehaviour
         if (index >= 0 && index < bossSprites.Length)
         {
             spriteRenderer.sprite = bossSprites[index];
+            googlyEyes[0].transform.localPosition = GooglyEyePositions[index * 2];
+            googlyEyes[1].transform.localPosition = GooglyEyePositions[(index * 2)+1];
         }
         else
         {
