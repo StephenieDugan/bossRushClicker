@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,16 @@ public class BossSpriteManager : MonoBehaviour
 
 	private void Awake() {
 		instance = this;
+	}
+
+    public void TapBoss() {
+        spriteRenderer.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+        //force on googly eyes
+
+	}
+
+	public void Update() {
+		spriteRenderer.gameObject.transform.localScale = math.lerp(spriteRenderer.gameObject.transform.localScale, Vector3.one, Time.deltaTime);
 	}
 
 	// This function can be called to change the sprite based on a boss type or selection
