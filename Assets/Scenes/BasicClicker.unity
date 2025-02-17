@@ -1230,7 +1230,11 @@ RectTransform:
   - {fileID: 109270961}
   - {fileID: 291497710}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 1269183351}
+=======
+  - {fileID: 1976183049}
+>>>>>>> Stashed changes
 =======
   - {fileID: 1976183049}
 >>>>>>> Stashed changes
@@ -3815,7 +3819,11 @@ CanvasRenderer:
   m_GameObject: {fileID: 1866464433}
   m_CullTransparentMesh: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1 &2023890730
+=======
+--- !u!1 &1976183048
+>>>>>>> Stashed changes
 =======
 --- !u!1 &1976183048
 >>>>>>> Stashed changes
@@ -3827,18 +3835,24 @@ GameObject:
   serializedVersion: 6
   m_Component:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - component: {fileID: 2023890731}
   - component: {fileID: 2023890733}
   - component: {fileID: 2023890732}
   m_Layer: 5
   m_Name: Text (TMP)
 =======
+=======
+>>>>>>> Stashed changes
   - component: {fileID: 1976183049}
   - component: {fileID: 1976183052}
   - component: {fileID: 1976183051}
   - component: {fileID: 1976183050}
   m_Layer: 5
   m_Name: Scroll View
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3846,7 +3860,11 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!224 &2023890731
+=======
+--- !u!224 &1976183049
+>>>>>>> Stashed changes
 =======
 --- !u!224 &1976183049
 >>>>>>> Stashed changes
@@ -3856,7 +3874,11 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 2023890730}
+=======
+  m_GameObject: {fileID: 1976183048}
+>>>>>>> Stashed changes
 =======
   m_GameObject: {fileID: 1976183048}
 >>>>>>> Stashed changes
@@ -3864,6 +3886,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_Children: []
   m_Father: {fileID: 109270961}
@@ -3875,6 +3898,8 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2023890732
 =======
+=======
+>>>>>>> Stashed changes
   m_Children:
   - {fileID: 192645430}
   m_Father: {fileID: 567655789}
@@ -3885,12 +3910,16 @@ RectTransform:
   m_SizeDelta: {x: 469.5, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1976183050
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 2023890730}
   m_Enabled: 1
@@ -3901,6 +3930,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 =======
+=======
+>>>>>>> Stashed changes
   m_GameObject: {fileID: 1976183048}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3939,6 +3970,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3946,6 +3980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_text: SHOP
   m_isRightToLeft: 0
@@ -4020,6 +4055,8 @@ MonoBehaviour:
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2023890733
 =======
+=======
+>>>>>>> Stashed changes
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -4031,6 +4068,9 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1976183052
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4038,7 +4078,11 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_GameObject: {fileID: 2023890730}
+=======
+  m_GameObject: {fileID: 1976183048}
+>>>>>>> Stashed changes
 =======
   m_GameObject: {fileID: 1976183048}
 >>>>>>> Stashed changes
