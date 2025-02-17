@@ -15,7 +15,7 @@ public class ClickerScript : MonoBehaviour
 
     // Reference to the BossManager and BossScript
     [SerializeField] BossManagerScript boss_manager;
-    private BossScript current_Boss;
+    public BossScript current_Boss;
     private PlayerTaps playerTaps;
 
 

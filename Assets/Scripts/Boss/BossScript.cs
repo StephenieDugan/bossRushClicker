@@ -118,6 +118,6 @@ public class BossScript : MonoBehaviour
     }
     private void UpdateHealthBar()
     {
-        if (health_bar != null) health_bar.value = current_health / max_health;
+        //if (health_bar != null) health_bar.value = current_health / max_health;
     }
 }

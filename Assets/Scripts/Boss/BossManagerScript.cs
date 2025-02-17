@@ -126,6 +126,7 @@ public class BossManagerScript : MonoBehaviour
             if (lastDefeatedBoss.TryGetComponent(out BossScript bossScript))
             {
                 bossScript.startBoss();
+                ClickerScript.instance.current_Boss = bossScript;
                 bossScript.current_health = bossScript.max_health; // Restore health
             }
             latestSpawnedBoss.SetActive(false);

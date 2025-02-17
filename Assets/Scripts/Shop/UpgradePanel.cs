@@ -29,7 +29,7 @@ public class UpgradePanel : MonoBehaviour
 
     public void OpenPanel()
     {
-        resultHeight1 = canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
+        resultHeight1 = 0; // canvasHeight / -3.5f; // change this value to make the shop reach up to this height on the screen, 0 brings the box to the middle of the screen
         resultHeight2 = resultHeight1 - 100f; // Optional offset effect
         actualHeight1 = -canvasHeight;  // Start from bottom
         actualHeight2 = -canvasHeight / 4;
