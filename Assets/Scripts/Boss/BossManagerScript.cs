@@ -156,8 +156,10 @@ public class BossManagerScript : MonoBehaviour
 			currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
             latestSpawnedBoss = null;
             SpawnNextBoss();
+            ClickerScript.instance.movingOn = true;
             return;
 		}
+        ClickerScript.instance.movingOn = false;
         defeatedBosses[level-1].SetActive(true); 
         if (defeatedBosses[level-1].TryGetComponent(out BossScript bossScript)) {
 			bossScript.startBoss();
@@ -167,6 +169,15 @@ public class BossManagerScript : MonoBehaviour
 		latestSpawnedBoss.SetActive(false);
 		latestSpawnedBoss = defeatedBosses[level-1]; // Ensure proper tracking
 		currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
+	}
+
+    public void respawnBoss() {
+		latestSpawnedBoss.SetActive(true);
+		if (latestSpawnedBoss.TryGetComponent(out BossScript bossScript)) {
+			bossScript.startBoss();
+			ClickerScript.instance.current_Boss = bossScript;
+			bossScript.current_health = bossScript.max_health; // Restore health
+		}
 	}
 
 }
