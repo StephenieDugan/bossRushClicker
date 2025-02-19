@@ -47,7 +47,7 @@ public class ClickerScript : MonoBehaviour
     void Update() {
         // Update boss health and money multiplier
         if (current_Boss != null) {
-            health_bar.value = current_Boss.current_health / current_Boss.max_health;
+            health_bar.value = current_Boss.current_health / ((current_Boss.max_health * 100f)/ 100f);
         }
         if (current_Boss != null) {
             for (int i = 0; i < currentDamagePerSec.Length; i++) {
