@@ -46,9 +46,34 @@ public class BossSpriteManager : MonoBehaviour {
     }
 
 	public void spawnDamageText(ElementType type, float damage) {
+        string element = "<sprite name=Light>";
+		switch (type) {
+			default:
+			case ElementType.Light:
+				element = "<sprite name=Light> ";
+				break;
+			case ElementType.Void:
+				element = "<sprite name=Void> ";
+				break;
+			case ElementType.Fire:
+				element = "<sprite name=Fire> ";
+				break;
+			case ElementType.Water:
+				element = "<sprite name=Water>";
+				break;
+			case ElementType.Air:
+				element = "<sprite name=Air>";
+				break;
+			case ElementType.Earth:
+				element = "<sprite name=Earth>";
+				break;
+			case ElementType.Plant:
+				element = "<sprite name=Plant>";
+				break;
+		}
 		GameObject textGO = Instantiate(floatingTextPrefab, spriteRenderer.gameObject.transform);
         textGO.transform.position = Input.mousePosition;
-		textGO.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
+		textGO.GetComponentInChildren<TextMeshProUGUI>().text = element + damage.ToString();
 		Destroy(textGO, 1);
 	}
 }

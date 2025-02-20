@@ -12,7 +12,6 @@ public class BossManagerScript : MonoBehaviour
     public List<GameObject> defeatedBosses; // List of defeated bosses
     private List<GameObject> bossesToFight; // List of bosses remaining to fight
     private GameObject latestSpawnedBoss;  // Track the latest boss spawned
-    [SerializeField] GameObject floatingTextPrefab;
 
     [Header("Progression Settings")]
     public int healthIncreasePerBoss = 20; // Health increase for each new boss
@@ -175,11 +174,7 @@ public class BossManagerScript : MonoBehaviour
 		currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
 	}
 
-    public void spawnDamageText(ElementType type, float damage) {
-		GameObject textGO = Instantiate(floatingTextPrefab, gameObject.transform.position, Quaternion.identity);
-		textGO.GetComponentInChildren<TextMeshPro>().text = damage.ToString();
-		Destroy(textGO, 1);
-	}
+
 
     public void respawnBoss() {
 		latestSpawnedBoss.SetActive(true);
