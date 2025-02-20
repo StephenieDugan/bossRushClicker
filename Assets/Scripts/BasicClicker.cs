@@ -77,8 +77,8 @@ public class ClickerScript : MonoBehaviour
     {
         // Reward player and spawn the next boss
         EarnPoints(current_Boss.CalculateMultiplier());
-        boss_manager.DefeatBoss(current_Boss.gameObject); // Register boss defeat
         if (movingOn) {
+        boss_manager.DefeatBoss(current_Boss.gameObject); // Register boss defeat
             SpawnNextBoss();
             // Spawn the next boss
         } else {
@@ -107,10 +107,10 @@ public class ClickerScript : MonoBehaviour
 
             // Explicitly track the new boss after spawning
             GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
-            current_Boss = newBoss.GetComponent<BossScript>(); // Get the BossScript from the new boss
+            
 
-            if (current_Boss != null)
-            {
+            if (newBoss != null && newBoss.TryGetComponent<BossScript>(out current_Boss))// Get the BossScript from the new boss
+			{
                 current_Boss.startBoss();
                 //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
                 health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value

@@ -166,7 +166,9 @@ public class BossManagerScript : MonoBehaviour
 			ClickerScript.instance.current_Boss = bossScript;
 			bossScript.current_health = bossScript.max_health; // Restore health
 		}
-		latestSpawnedBoss.SetActive(false);
+        if (latestSpawnedBoss != null) {
+            latestSpawnedBoss.SetActive(false);
+        }
 		latestSpawnedBoss = defeatedBosses[level-1]; // Ensure proper tracking
 		currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
 	}
