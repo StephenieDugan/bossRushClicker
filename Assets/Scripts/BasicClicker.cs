@@ -87,18 +87,21 @@ public class ClickerScript : MonoBehaviour
         if (boss_manager != null)
         {
             boss_manager.SpawnNextBoss();  // Trigger the spawn of the next boss
-
-            // Explicitly track the new boss after spawning
-            GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
-            current_Boss = newBoss.GetComponent<BossScript>(); // Get the BossScript from the new boss
-
-            if (current_Boss != null)
+            if (boss_manager.currentBossIndex < boss_manager.bossesToFight.Count) 
             {
-                current_Boss.startBoss();
-                //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
-                health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
+                // Explicitly track the new boss after spawning
+                GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
+                current_Boss = newBoss.GetComponent<BossScript>(); // Get the BossScript from the new boss
+
+                if (current_Boss != null)
+                {
+                    current_Boss.startBoss();
+                    //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
+                    health_bar.value = current_Boss.current_health / current_Boss.max_health;  // Set the initial health value
+                }
+                else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
             }
-            else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
+            Debug.Log("Win Screen");
         }
     }
 
