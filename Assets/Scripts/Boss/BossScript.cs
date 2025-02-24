@@ -51,7 +51,7 @@ public class BossScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void startBoss()
     {
-        BossSpriteManager.instance.SetSprite(sprite_value);
+        BossSpriteManager.instance.SetSprite(sprite_value, boss_elements);
         current_health = max_health;
         UpdateHealthBar();
     }
@@ -59,6 +59,7 @@ public class BossScript : MonoBehaviour
     public void TakeDamage(Dictionary<ElementType, float> attackElements)
     {
         float maxDamage = 0f;
+        ElementType finalElement = ElementType.Light;
 
         foreach (var attack in attackElements)
         {
@@ -76,10 +77,13 @@ public class BossScript : MonoBehaviour
             if (finalDamage > maxDamage)
             {
                 maxDamage = finalDamage;
+                finalElement = attackElement;
             }
             // Debug log for each element's contribution
             Debug.Log($"Element: {attackElement}, Base Damage: {baseDamage}, Multiplier: {avgMultiplier}, Final Damage: {finalDamage}");
         }
+
+        BossSpriteManager.instance.spawnDamageText(finalElement, maxDamage);
 
         // Apply only the highest damage found
         current_health -= maxDamage;

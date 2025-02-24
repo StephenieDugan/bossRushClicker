@@ -1,14 +1,17 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BossManagerScript : MonoBehaviour
 {
+    public static BossManagerScript instance { get; private set; }
+
     [Header("Boss Settings")]
     public List<GameObject> allBosses; // List of all available bosses
     public List<GameObject> defeatedBosses; // List of defeated bosses
     public List<GameObject> bossesToFight; // List of bosses remaining to fight
     private GameObject latestSpawnedBoss;  // Track the latest boss spawned
-
 
     [Header("Progression Settings")]
     public int healthIncreasePerBoss = 20; // Health increase for each new boss
@@ -18,6 +21,7 @@ public class BossManagerScript : MonoBehaviour
     public Timer timer;  // Reference to the Timer script
 
     private void Awake() {
+        instance = this;
         bossesToFight = new List<GameObject>(allBosses);
         ShuffleBossList(bossesToFight); // Randomize the order
 	}
@@ -50,6 +54,7 @@ public class BossManagerScript : MonoBehaviour
 
             if (newBoss.TryGetComponent(out BossScript bossScript))
             {
+                bossScript.startBoss();
                 bossScript.max_health += currentBossIndex * healthIncreasePerBoss;
                 bossScript.current_health = bossScript.max_health;
                 latestSpawnedBoss = newBoss;
@@ -145,6 +150,39 @@ public class BossManagerScript : MonoBehaviour
         }
     }
 
+    public void changeBoss(int level) {
+        if (level - 1 >= defeatedBosses.Count) {// if trying to return to most recent boss not defeated yet
 
+			latestSpawnedBoss.SetActive(false);
+			currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
+            latestSpawnedBoss = null;
+            SpawnNextBoss();
+            ClickerScript.instance.movingOn = true;
+            return;
+		}
+        ClickerScript.instance.movingOn = false;
+        defeatedBosses[level-1].SetActive(true); 
+        if (defeatedBosses[level-1].TryGetComponent(out BossScript bossScript)) {
+			bossScript.startBoss();
+			ClickerScript.instance.current_Boss = bossScript;
+			bossScript.current_health = bossScript.max_health; // Restore health
+		}
+        if (latestSpawnedBoss != null) {
+            latestSpawnedBoss.SetActive(false);
+        }
+		latestSpawnedBoss = defeatedBosses[level-1]; // Ensure proper tracking
+		currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
+	}
+
+
+
+    public void respawnBoss() {
+		latestSpawnedBoss.SetActive(true);
+		if (latestSpawnedBoss.TryGetComponent(out BossScript bossScript)) {
+			bossScript.startBoss();
+			ClickerScript.instance.current_Boss = bossScript;
+			bossScript.current_health = bossScript.max_health; // Restore health
+		}
+	}
 
 }

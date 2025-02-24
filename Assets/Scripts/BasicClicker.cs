@@ -18,7 +18,7 @@ public class ClickerScript : MonoBehaviour
     public BossScript current_Boss;
     private PlayerTaps playerTaps;
 
-
+    public bool movingOn = true; //asks if we move to the next boss or restart this one.
 
 	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
 
@@ -77,9 +77,26 @@ public class ClickerScript : MonoBehaviour
     {
         // Reward player and spawn the next boss
         EarnPoints(current_Boss.CalculateMultiplier());
+        if (movingOn) {
         boss_manager.DefeatBoss(current_Boss.gameObject); // Register boss defeat
-        SpawnNextBoss();  // Spawn the next boss
+            SpawnNextBoss();
+            // Spawn the next boss
+        } else {
+            RespawnThisBoss();
+        }
     }
+
+    private void RespawnThisBoss() {
+
+		GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
+        boss_manager.respawnBoss();
+
+		if (current_Boss != null) {
+			current_Boss.startBoss();
+			//current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
+			health_bar.value = current_Boss.current_health / current_Boss.max_health;  // Set the initial health value
+		}
+	}
 
     // Method to spawn the next boss from the BossManager
     private void SpawnNextBoss()
@@ -87,6 +104,7 @@ public class ClickerScript : MonoBehaviour
         if (boss_manager != null)
         {
             boss_manager.SpawnNextBoss();  // Trigger the spawn of the next boss
+
             if (boss_manager.currentBossIndex < boss_manager.bossesToFight.Count) 
             {
                 // Explicitly track the new boss after spawning
@@ -100,6 +118,7 @@ public class ClickerScript : MonoBehaviour
                     health_bar.value = current_Boss.current_health / current_Boss.max_health;  // Set the initial health value
                 }
                 else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
+
             }
             Debug.Log("Win Screen");
         }
