@@ -10,12 +10,12 @@ public class BossManagerScript : MonoBehaviour
     [Header("Boss Settings")]
     public List<GameObject> allBosses; // List of all available bosses
     public List<GameObject> defeatedBosses; // List of defeated bosses
-    private List<GameObject> bossesToFight; // List of bosses remaining to fight
+    public List<GameObject> bossesToFight; // List of bosses remaining to fight
     private GameObject latestSpawnedBoss;  // Track the latest boss spawned
 
     [Header("Progression Settings")]
     public int healthIncreasePerBoss = 20; // Health increase for each new boss
-    private int currentBossIndex = 0;
+    public int currentBossIndex = 0;
 
     [Header("Timer Settings")]
     public Timer timer;  // Reference to the Timer script
