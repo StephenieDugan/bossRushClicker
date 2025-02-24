@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,7 +24,8 @@ public class ClickerScript : MonoBehaviour
 
 	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
 
-	private void Awake() {
+    public static event EventHandler onBossTap;
+    private void Awake() {
 		instance = this;
 	}
 
@@ -32,8 +34,8 @@ public class ClickerScript : MonoBehaviour
 	void Start()
     {
         // Find the BossManager in the scene
-        boss_manager = Object.FindFirstObjectByType<BossManagerScript>();
-        playerTaps = Object.FindFirstObjectByType<PlayerTaps>();
+        boss_manager = UnityEngine.Object.FindFirstObjectByType<BossManagerScript>();
+        playerTaps = UnityEngine.Object.FindFirstObjectByType<PlayerTaps>();
 
         if (PlayerPrefs.HasKey("money")) 
         {
@@ -61,6 +63,8 @@ public class ClickerScript : MonoBehaviour
     {
         if (current_Boss != null && clickable)
         {
+
+            onBossTap.Invoke(this, EventArgs.Empty);
             // Retrieve player's elemental damage values
             Dictionary<ElementType, float> playerElements = playerTaps.GetTapElements();
 

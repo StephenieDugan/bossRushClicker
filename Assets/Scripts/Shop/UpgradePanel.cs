@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class UpgradePanel : MonoBehaviour
     private float resultHeight1, resultHeight2; // Target heights when opening/closing
     private float actualHeight1, actualHeight2; // Current animated heights
     public int panelMovement;
-
+    public static event EventHandler OnbuttonPress;
     public void Start()
     {
         canvasHeight = canvas.gameObject.GetComponent<RectTransform>().rect.height + 500f;
@@ -21,10 +22,16 @@ public class UpgradePanel : MonoBehaviour
 
         // Ensure button calls OpenPanel() when clicked
         if (OpenShopButton != null)
-            OpenShopButton.onClick.AddListener(OpenPanel);
+            OpenShopButton.onClick.AddListener(() => {
+                OpenPanel(); 
+                OnbuttonPress.Invoke(this, EventArgs.Empty);
+            });
         // Ensure button calls ClosePanel() when clicked
         if (CloseShopButton != null)
-            CloseShopButton.onClick.AddListener(ClosePanel);
+            CloseShopButton.onClick.AddListener(() => {
+                ClosePanel();
+                OnbuttonPress.Invoke(this, EventArgs.Empty);
+            });
     }
 
     public void OpenPanel()
