@@ -47,7 +47,7 @@ public class ClickerScript : MonoBehaviour
     void Update() {
         // Update boss health and money multiplier
         if (current_Boss != null) {
-            health_bar.value = current_Boss.current_health / current_Boss.max_health;
+            health_bar.value = current_Boss.current_health / ((current_Boss.max_health * 100f)/ 100f);
         }
         if (current_Boss != null) {
             for (int i = 0; i < currentDamagePerSec.Length; i++) {
@@ -104,6 +104,7 @@ public class ClickerScript : MonoBehaviour
         if (boss_manager != null)
         {
             boss_manager.SpawnNextBoss();  // Trigger the spawn of the next boss
+
             if (boss_manager.currentBossIndex < boss_manager.bossesToFight.Count) 
             {
                 // Explicitly track the new boss after spawning
@@ -117,6 +118,7 @@ public class ClickerScript : MonoBehaviour
                     health_bar.value = current_Boss.current_health / current_Boss.max_health;  // Set the initial health value
                 }
                 else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
+
             }
             Debug.Log("Win Screen");
         }
