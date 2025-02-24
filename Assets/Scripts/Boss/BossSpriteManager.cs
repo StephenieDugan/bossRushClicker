@@ -14,17 +14,18 @@ public class BossSpriteManager : MonoBehaviour {
     [SerializeField] public List<googlyEye> googlyEyes;
 	[SerializeField] GameObject floatingTextPrefab;
 	[SerializeField] TextMeshProUGUI elementType;
-
+	public bool clickable;
 	private void Awake() {
 		instance = this;
 	}
 
     public void TapBoss() {
-        spriteRenderer.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        //force on googly eyes
-        googlyEyes[0].ApplyRandomForce();
-        googlyEyes[1].ApplyRandomForce();
-
+		if (clickable) {
+			spriteRenderer.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+			//force on googly eyes
+			googlyEyes[0].ApplyRandomForce();
+			googlyEyes[1].ApplyRandomForce();
+		}
 	}
 
 	public void Update() {

@@ -17,6 +17,7 @@ public class ClickerScript : MonoBehaviour
     [SerializeField] BossManagerScript boss_manager;
     public BossScript current_Boss;
     private PlayerTaps playerTaps;
+    public bool clickable = true;
 
     public bool movingOn = true; //asks if we move to the next boss or restart this one.
 
@@ -58,7 +59,7 @@ public class ClickerScript : MonoBehaviour
 
     public void HurtBoss() 
     {
-        if (current_Boss != null)
+        if (current_Boss != null && clickable)
         {
             // Retrieve player's elemental damage values
             Dictionary<ElementType, float> playerElements = playerTaps.GetTapElements();

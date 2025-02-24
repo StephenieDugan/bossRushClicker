@@ -43,6 +43,8 @@ public class UpgradePanel : MonoBehaviour
 
         //-Scenery.sizeDelta = new Vector2(0, canvasHeight);
         //Scenery.anchoredPosition = new Vector2(0, 0);
+        ClickerScript.instance.clickable = false;
+        BossSpriteManager.instance.clickable = false;
     }
 
     public void ClosePanel()
@@ -55,13 +57,15 @@ public class UpgradePanel : MonoBehaviour
         panelMovement = 2; // make sure the movement happens
 
 
-        //Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
-        //Panel.anchoredPosition = new Vector2(0, 0);
-        //-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
-        //Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
+		//Panel.anchoredPosition = new Vector2(0, -canvasHeight / 2);
+		//Panel.anchoredPosition = new Vector2(0, 0);
+		//-Scenery.sizeDelta = new Vector2(0, canvasHeight / 2);
+		//Scenery.anchoredPosition = new Vector2(0, -canvasHeight / 4);
 
 
-    }
+		ClickerScript.instance.clickable = true;
+		BossSpriteManager.instance.clickable = true;
+	}
 
 
     /*
