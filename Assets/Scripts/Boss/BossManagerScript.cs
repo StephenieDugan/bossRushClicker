@@ -15,7 +15,7 @@ public class BossManagerScript : MonoBehaviour
 
     [Header("Progression Settings")]
     public int healthIncreasePerBoss = 20; // Health increase for each new boss
-    private int currentBossIndex = 0;
+    public int currentBossIndex = 0;
     private int loopCount = 0;  // Track how many times we've looped through the boss list
 
     [Header("Timer Settings")]
