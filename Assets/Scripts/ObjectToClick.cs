@@ -1,16 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ObjectToClick : MonoBehaviour
 {
     public UnityEvent onTap;
-
-	private void Start() {
+    private void Start() {
 		onTap.AddListener(() => {
             ClickerScript.instance.HurtBoss();
             BossSpriteManager.instance.TapBoss();
-
-            });
+        });
 	}
 
 	private void OnTap() 

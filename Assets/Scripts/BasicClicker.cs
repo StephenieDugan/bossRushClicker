@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,12 +18,14 @@ public class ClickerScript : MonoBehaviour
     [SerializeField] BossManagerScript boss_manager;
     public BossScript current_Boss;
     private PlayerTaps playerTaps;
+    public bool clickable = true;
 
     public bool movingOn = true; //asks if we move to the next boss or restart this one.
 
 	float[] currentDamagePerSec = { 0, 0, 0, 0, 0, 0, 0 };// Light, Void, Fire, Water, Air, Earth, Plant
 
-	private void Awake() {
+    public static event EventHandler onBossTap;
+    private void Awake() {
 		instance = this;
 	}
 
@@ -31,8 +34,8 @@ public class ClickerScript : MonoBehaviour
 	void Start()
     {
         // Find the BossManager in the scene
-        boss_manager = Object.FindFirstObjectByType<BossManagerScript>();
-        playerTaps = Object.FindFirstObjectByType<PlayerTaps>();
+        boss_manager = UnityEngine.Object.FindFirstObjectByType<BossManagerScript>();
+        playerTaps = UnityEngine.Object.FindFirstObjectByType<PlayerTaps>();
 
         if (PlayerPrefs.HasKey("money")) 
         {
@@ -58,8 +61,10 @@ public class ClickerScript : MonoBehaviour
 
     public void HurtBoss() 
     {
-        if (current_Boss != null)
+        if (current_Boss != null && clickable)
         {
+
+            onBossTap.Invoke(this, EventArgs.Empty);
             // Retrieve player's elemental damage values
             Dictionary<ElementType, float> playerElements = playerTaps.GetTapElements();
 
@@ -77,8 +82,8 @@ public class ClickerScript : MonoBehaviour
     {
         // Reward player and spawn the next boss
         EarnPoints(current_Boss.CalculateMultiplier());
-        boss_manager.DefeatBoss(current_Boss.gameObject); // Register boss defeat
         if (movingOn) {
+        boss_manager.DefeatBoss(current_Boss.gameObject); // Register boss defeat
             SpawnNextBoss();
             // Spawn the next boss
         } else {
@@ -105,17 +110,22 @@ public class ClickerScript : MonoBehaviour
         {
             boss_manager.SpawnNextBoss();  // Trigger the spawn of the next boss
 
-            // Explicitly track the new boss after spawning
-            GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
-            current_Boss = newBoss.GetComponent<BossScript>(); // Get the BossScript from the new boss
-
-            if (current_Boss != null)
+            if (boss_manager.currentBossIndex < boss_manager.bossesToFight.Count) 
             {
-                current_Boss.startBoss();
-                //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
-                health_bar.value = current_Boss.current_health/current_Boss.max_health;  // Set the initial health value
+                // Explicitly track the new boss after spawning
+                GameObject newBoss = boss_manager.GetLatestSpawnedBoss();
+                current_Boss = newBoss.GetComponent<BossScript>(); // Get the BossScript from the new boss
+
+                if (current_Boss != null)
+                {
+                    current_Boss.startBoss();
+                    //current_Boss.health_bar.maxValue = current_Boss.max_health;  // Set the new boss's health bar max value
+                    health_bar.value = current_Boss.current_health / current_Boss.max_health;  // Set the initial health value
+                }
+                else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
+
             }
-            else Debug.LogError("Newly spawned boss does not have a BossScript attached.");
+            Debug.Log("Win Screen");
         }
     }
 

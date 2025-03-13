@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e278a274ba6abca419cacaa34f9e1e19, type: 3}
   m_Name: New Sounds SO
   m_EditorClassIdentifier: 
-  buttonPress: {fileID: 0}
+  buttonPress: {fileID: 8300000, guid: 7cc057bed53baf34799f52aab3c84800, type: 3}
   buttonPressVolume: 0.6
+  boss: {fileID: 8300000, guid: 490bfbc72255342408984f60044487de, type: 3}
+  BossVolume: 0.6

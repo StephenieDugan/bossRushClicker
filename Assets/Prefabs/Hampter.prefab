@@ -166,10 +166,9 @@ MonoBehaviour:
   sprite_value: 2
   max_health: 100
   current_health: 100
-  health_bar: {fileID: 0}
   redHealth_percentage: 0.25
   isEnraged: 0
   isDefeated: 0
-  reward_min: 0.25
-  reward_max: 10
+  reward_min: 10
+  reward_max: 25
   boss_elements: 00000000

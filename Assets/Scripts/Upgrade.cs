@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -9,13 +10,15 @@ public class Upgrade : MonoBehaviour {
 	[SerializeField] ElementType type = ElementType.Light;
 	[SerializeField] float DamageIncrease = 1;
 	[SerializeField] bool IsItTapPower = true;// if false it will do ally damage instead
-
+	public static EventHandler OnbuttonPress;
 	private void Start() {
 		costText.text = "$" + CurrentCost.ToString();
 	}
 
-	public void Purchase() {
-		float currentMoney = ClickerScript.instance.money_amount;
+	public void Purchase()
+    {
+        OnbuttonPress.Invoke(this, EventArgs.Empty);
+        float currentMoney = ClickerScript.instance.money_amount;
 		if (currentMoney > CurrentCost) {
 			ClickerScript.instance.money_amount = currentMoney - CurrentCost;
 
