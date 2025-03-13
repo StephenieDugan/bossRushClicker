@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BossManagerScript : MonoBehaviour
 {
@@ -8,13 +10,12 @@ public class BossManagerScript : MonoBehaviour
     [Header("Boss Settings")]
     public List<GameObject> allBosses; // List of all available bosses
     public List<GameObject> defeatedBosses; // List of defeated bosses
-    private List<GameObject> bossesToFight; // List of bosses remaining to fight
+    public List<GameObject> bossesToFight; // List of bosses remaining to fight
     private GameObject latestSpawnedBoss;  // Track the latest boss spawned
-
 
     [Header("Progression Settings")]
     public int healthIncreasePerBoss = 20; // Health increase for each new boss
-    private int currentBossIndex = 0;
+    public int currentBossIndex = 0;
     private int loopCount = 0;  // Track how many times we've looped through the boss list
 
     [Header("Timer Settings")]
@@ -257,7 +258,9 @@ public class BossManagerScript : MonoBehaviour
 			ClickerScript.instance.current_Boss = bossScript;
 			bossScript.current_health = bossScript.max_health; // Restore health
 		}
-		latestSpawnedBoss.SetActive(false);
+        if (latestSpawnedBoss != null) {
+            latestSpawnedBoss.SetActive(false);
+        }
 		latestSpawnedBoss = defeatedBosses[level-1]; // Ensure proper tracking
 		currentBossIndex = Mathf.Max(0, level - 1); // Ensure we revert boss progression
 	}*/
@@ -289,5 +292,4 @@ public class BossManagerScript : MonoBehaviour
             bossScript.current_health = bossScript.max_health; // Restore health
         }
     }
-
 }
